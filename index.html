@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Laundry</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ✅ Top Navigation -->
+  <header class="topnav">
+    <div class="logo">E-Laundry
+      
+    </div>
+
+    <!-- Search bar in navbar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search services or items...">
+      <button onclick="searchItems()">🔍</button>
+    </div>
+
+    <nav class="nav-links" id="navLinks">
+      <a class="active" href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <div class="cart-icon" onclick="toggleCart()">🧺 <span class="cart-count">0</span></div>
+      <div class="signin"><button>Sign in</button></div>
+    </nav>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </header>
+
+  <!-- ✅ Hero Section -->
+  <section class="background" id="home">
+    <div class="heading1">
+      <h1>Premium Laundry & Ironing Services</h1>
+      <p>We pick up, clean, iron & deliver your clothes — hassle-free!</p>
+      <div class="hero-form">
+        <input type="email" id="emailInput" placeholder="Enter your email" required>
+        <button onclick="getStarted()">Get Started &gt;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Categories Section -->
+  <section class="categories" id="services">
+    <h2>Our Services</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="assests/u1.webp4.jpg" alt="Laundry">
+        <h3>Laundry</h3>
+      </div>
+      <div class="category-card">
+        <img src="assests/u3.webp" alt="Ironing">
+        <h3>Ironing</h3>
+      </div>
+      <div class="category-card">
+        <img src="assests/dryclean.jpg" alt="Dry Cleaning">
+        <h3>Dry Cleaning</h3>
+      </div>
+      <div class="category-card">
+        <img src="assests/premium.png" alt="Premium Wash">
+        <h3>Premium Wash</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Product Grid -->
+  <section class="products" id="pricing">
+    <h2>Popular Items</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="assests/t-shirt.webp" alt="T-shirt">
+        <h3>T-shirt</h3>
+        <p>₹50 / wash</p>
+        <button onclick="addProduct('T-shirt',50)">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="assests/shirt.webp" alt="Shirt">
+        <h3>Shirt</h3>
+        <p>₹70 / wash</p>
+        <button onclick="addProduct('Shirt',70)">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="assests/saree.webp" alt="Saree">
+        <h3>Saree</h3>
+        <p>₹120 / wash</p>
+        <button onclick="addProduct('Saree',120)">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="assests/suit.webp" alt="Suit">
+        <h3>Suit</h3>
+        <p>₹150 / wash</p>
+        <button onclick="addProduct('Suit',150)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Cart Sidebar -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <h2>Your Cart</h2>
+    <ul id="cartList"></ul>
+    <p id="cartTotal"><strong>Total: ₹0</strong></p>
+    <button onclick="checkout()">Checkout</button>
+  </aside>
+
+  <!-- ✅ Testimonials -->
+  <section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <p>“Fast delivery and very professional service. My clothes look brand new!”</p>
+        <span>- Riya Sharma</span>
+      </div>
+      <div class="testimonial">
+        <p>“Affordable and reliable. The best laundry service in town!”</p>
+        <span>- Arjun Verma</span>
+      </div>
+    </div>
+  </section>
+
+
+
+    <!-- ✅ Track Order Section -->
+  <section class="track-order" id="track">
+    <h2>Track Your Order</h2>
+    <div class="order-tracker">
+      <div class="step active">Ordered</div>
+      <div class="step">Washing</div>
+      <div class="step">Out for Delivery</div>
+      <div class="step">Delivered</div>
+    </div>
+    <button onclick="nextStep()">Next Status ➡</button>
+  </section>
+
+
+  <!-- ✅ Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="footer-column">
+        <h3>Contact</h3>
+        <p>Email: support@elaundry.com</p>
+        <p>Phone: +91 9876543210</p>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <p>🌐 Facebook | 📸 Instagram | 🐦 Twitter</p>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 E-Laundry. All rights reserved.</p>
+  </footer>
+
+  <!-- ✅ Scripts -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+
+    // ✅ Cart System
+    let cart = {};
+
+    function addProduct(name, price) {
+      if (!cart[name]) {
+        cart[name] = { price: price, qty: 1 };
+      } else {
+        cart[name].qty++;
+      }
+      renderCart();
+    }
+
+    function changeQty(item, delta) {
+      cart[item].qty += delta;
+      if (cart[item].qty <= 0) delete cart[item];
+      renderCart();
+    }
+
+    function removeItem(item) {
+      delete cart[item];
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById("cartList");
+      const cartCount = document.querySelector(".cart-count");
+      const cartTotal = document.getElementById("cartTotal");
+
+      cartList.innerHTML = "";
+      let total = 0, count = 0;
+
+      for (let item in cart) {
+        let li = document.createElement("li");
+        li.innerHTML = `
+          ${item} - ₹${cart[item].price} × ${cart[item].qty} = ₹${cart[item].price * cart[item].qty}
+          <div style="float:right">
+            <button onclick="changeQty('${item}',1)">➕</button>
+            <button onclick="changeQty('${item}',-1)">➖</button>
+            <button onclick="removeItem('${item}')">🗑️</button>
+          </div>
+        `;
+        cartList.appendChild(li);
+        total += cart[item].price * cart[item].qty;
+        count += cart[item].qty;
+      }
+
+      cartCount.innerText = count;
+      cartTotal.innerHTML = `<strong>Total: ₹${total}</strong>`;
+    }
+
+    function toggleCart() {
+      document.getElementById("cartSidebar").classList.toggle("active");
+    }
+
+    function checkout() {
+      alert("Proceeding to checkout...");
+    }
+
+    // ✅ Hero "Get Started"
+    function getStarted() {
+      const email = document.getElementById("emailInput").value;
+      if (email.trim() === "") {
+        alert("Please enter your email!");
+      } else {
+        alert(`Welcome! We'll send offers to ${email}`);
+      }
+    }
+
+    // ✅ Search Function
+    function searchItems() {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let products = document.querySelectorAll(".product-card");
+
+      products.forEach(card => {
+        let name = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = name.includes(input) ? "block" : "none";
+      });
+    }
+    // Track Order System
+let currentStep = 0;
+const steps = document.querySelectorAll(".order-tracker .step");
+
+function nextStep() {
+  if (currentStep < steps.length) {
+    steps[currentStep].classList.remove("active");
+    currentStep++;
+    if (currentStep < steps.length) {
+      steps[currentStep].classList.add("active");
+    } else {
+      alert("✅ Order Delivered Successfully!");
+    }
+  }
+}
+
+  </script>
+</body>
+</html>
